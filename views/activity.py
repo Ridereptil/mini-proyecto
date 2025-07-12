@@ -14,30 +14,31 @@ def mostrar_actividades(ventana):
     formulario_frame = tk.Frame(ventana, bg=FOURTH_COLOR, padx=20, pady=20)
     formulario_frame.grid(row=0, column=0, sticky="ew")
 
-
+    titulo_var = tk.StringVar()
+    descripcion_var = tk.StringVar()
 
     tk.Label(formulario_frame, text="Nueva Actividad", font=TITLE, bg=FOURTH_COLOR,fg=SECUNDARY_COLOR).grid(row=0, column=0, columnspan=2, pady=10)
 
     tk.Label(formulario_frame, text="Título:", font=TEXT, bg=FOURTH_COLOR,fg=PRIMARY_COLOR).grid(row=1, column=0, sticky="e", padx=5, pady=5)
     
-    tk.Entry(formulario_frame, textvariable=tk.StringVar, width=40, font=TEXT,bg="white",fg="black").grid(row=1, column=1, padx=5, pady=5)
+    tk.Entry(formulario_frame, textvariable=titulo_var, width=40, font=TEXT,bg="white",fg="black").grid(row=1, column=1, padx=5, pady=5)
 
     tk.Label(formulario_frame, text="Descripción:", font=TEXT, bg=FOURTH_COLOR,fg=PRIMARY_COLOR).grid(row=2, column=0, sticky="e", padx=5, pady=5)
     
-    tk.Entry(formulario_frame, textvariable=tk.StringVar(), width=40, font=TEXT,bg="white",fg="black").grid(row=2, column=1, padx=5, pady=5)
+    tk.Entry(formulario_frame, textvariable=descripcion_var, width=40, font=TEXT,bg="white",fg="black").grid(row=2, column=1, padx=5, pady=5)
 
     def guardar():
-        if not tk.StringVar.get().strip() or not tk.StringVar.get().strip():
+        if not titulo_var.get().strip() or not descripcion_var.get().strip():
             messagebox.showerror("Error", "Debes llenar ambos campos")
             return
             
         if guardar_actividad({
-            "title": tk.StringVar.get().strip(),
-            "description": tk.StringVar.get().strip()
+            "title": titulo_var.get().strip(),
+            "description": descripcion_var.get().strip()
         }):
             messagebox.showinfo("Éxito", "Actividad guardada correctamente")
-            tk.StringVar.set("")
-            tk.StringVar.set("")
+            titulo_var.set("")
+            descripcion_var.set("")
             actualizar_tabla()
         else:
             messagebox.showerror("Error", "No se pudo guardar la actividad")
