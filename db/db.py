@@ -2,7 +2,7 @@ import psycopg2
 from psycopg2 import OperationalError
 
 DB_CONFIG = {
-    "dbname": "postgres",  # Conexión inicial a la DB por defecto
+    "dbname": "postgres",  
     "user": "postgres",
     "password": "Arturo27",
     "host": "localhost",
@@ -10,13 +10,11 @@ DB_CONFIG = {
 }
 
 def create_database():
-    """Crea la base de datos si no existe"""
     try:
         conn = psycopg2.connect(**DB_CONFIG)
-        conn.autocommit = True  # Necesario para crear bases de datos
+        conn.autocommit = True 
         cursor = conn.cursor()
         
-        # Verificar si la base de datos ya existe
         cursor.execute("SELECT 1 FROM pg_database WHERE datname='actividades'")
         if not cursor.fetchone():
             cursor.execute("CREATE DATABASE actividades")
@@ -34,7 +32,6 @@ def create_database():
             conn.close()
 
 def get_connection():
-    """Obtiene conexión a la DB actividades"""
     config = DB_CONFIG.copy()
     config["dbname"] = "actividades"
     try:
@@ -44,12 +41,11 @@ def get_connection():
         raise e
 
 def init_db():
-    """Inicializa la base de datos con la estructura correcta"""
     conn = get_connection()
     try:
         with conn.cursor() as cursor:
             cursor.execute("""
-            CREATE TABLE IF NOT EXISTS activities (
+            CREATE TABLE IF NOT EXISTS todo (
                 id SERIAL PRIMARY KEY,
                 title VARCHAR(100) NOT NULL,
                 description TEXT NOT NULL,
@@ -57,10 +53,10 @@ def init_db():
             );
             """)
             cursor.execute("""
-            ALTER TABLE activities DROP COLUMN IF EXISTS activity_date;
+            ALTER TABLE todo DROP COLUMN IF EXISTS activity_date;
             """)
         conn.commit()
-        print("Tabla 'activities' configurada correctamente")
+        print("Tabla 'todo' configurada correctamente")
     except Exception as e:
         print(f"Error al inicializar DB: {e}")
         conn.rollback()
