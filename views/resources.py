@@ -9,6 +9,6 @@ SECUNDARY_COLOR = "#E76F51"
 THIRD_COLOR = "#2A9D8F"       
 FOURTH_COLOR = "#CFE6FC"      
 
-ICON ="C:/Users/LINDA/OneDrive/Documentos/trabajos universidad/trabajos universidad 3 cuatri/libreria/views/img/descarga.ico"
+ICON =""
 
-LOGO ="C:/Users/LINDA/OneDrive/Documentos/trabajos universidad/trabajos universidad 3 cuatri/libreria/views/img/logo.gif"
+LOGO =""
